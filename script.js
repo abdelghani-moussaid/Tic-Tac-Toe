@@ -68,7 +68,11 @@ function Gameboard() {
             }
             counter++;
         }
-        return winner.includes(true)
+        return winner.includes(true);
+    }
+
+    const checkTie = () =>{
+        return board.flat().every(cell => cell.getValue() !== 0);
     }
   
     // This method will be used to print our board to the console.
@@ -81,7 +85,7 @@ function Gameboard() {
   
     // Here, we provide an interface for the rest of our
     // application to interact with the board
-    return { getBoard, markToken, checkWinner, printBoard };
+    return { getBoard, markToken, checkWinner, checkTie, printBoard };
   }
   
   /*
@@ -149,7 +153,15 @@ function Gameboard() {
       );
       board.markToken(row, column, getActivePlayer().token);
   
-      board.checkWinner(row, column, getActivePlayer().token);
+      if(board.checkWinner(row, column, getActivePlayer().token)){
+        console.log(`There a winner! ${getActivePlayer().name} Has Won!!!!`);
+        return;
+      }
+      if(board.checkTie()){
+        console.log(`There is a Tie`);
+        return;
+      }
+
   
       // Switch player turn
       switchPlayerTurn();
