@@ -36,6 +36,40 @@ function Gameboard() {
         board[row][column].addToken(player);
       
     };
+
+    const checkWinner = (row, column, player) => {
+
+        // if one element stays true after checking then it's a win
+        let winner =[true, true, true, true];
+        let counter = 0;
+
+        // Check column
+        for(let j=0; j< columns; j++){
+            if(board[row][j].getValue() !== player){
+             winner[0] = false;
+            }
+        }
+        // Check row
+        for(let i=0; i< rows; i++){
+            if(board[i][column].getValue() !== player){
+             winner[1] = false;
+            }
+        }
+        // check diagonal
+        for(let i=0;i<rows;i++){
+            if(board[i][i].getValue() !== player){
+                winner[2] = false;
+            }
+        }
+        // check inverse diagonal
+        for(let j = columns-1; j>=0; j--){
+            if(board[counter][j].getValue() !== player){
+                winner[3] = false;
+            }
+            counter++;
+        }
+        return winner.includes(true)
+    }
   
     // This method will be used to print our board to the console.
     // It is helpful to see what the board looks like after each turn as we play,
@@ -47,7 +81,7 @@ function Gameboard() {
   
     // Here, we provide an interface for the rest of our
     // application to interact with the board
-    return { getBoard, markToken, printBoard };
+    return { getBoard, markToken, checkWinner, printBoard };
   }
   
   /*
@@ -115,8 +149,7 @@ function Gameboard() {
       );
       board.markToken(row, column, getActivePlayer().token);
   
-      /*  This is where we would check for a winner and handle that logic,
-          such as a win message. */
+      board.checkWinner(row, column, getActivePlayer().token);
   
       // Switch player turn
       switchPlayerTurn();
