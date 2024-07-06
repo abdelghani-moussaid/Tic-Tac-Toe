@@ -72,15 +72,6 @@ function Gameboard() {
         return winner.includes(true);
     }
 
-  
-    // This method will be used to print our board to the console.
-    // It is helpful to see what the board looks like after each turn as we play,
-    // but we won't need it after we build our UI
-    const printBoard = () => {
-      const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()))
-      console.log(boardWithCellValues);
-    };
-
     const checkEmpty = (row, column) => board[row][column].getValue() === '';
   
     // Here, we provide an interface for the rest of our
@@ -141,12 +132,6 @@ function Gameboard() {
     };
     const getActivePlayer = () => activePlayer;
   
-    const printNewRound = () => {
-      board.printBoard();
-      console.log(`${getActivePlayer().name}'s turn.`);
-    };
-
-  
     const playRound = (row, column) => {
       if(board.checkEmpty(row, column)){
         // Mark a token for the current player
@@ -166,7 +151,6 @@ function Gameboard() {
         
         // Switch player turn
         switchPlayerTurn();
-        printNewRound();
         return
       }
     };
@@ -184,16 +168,21 @@ function Gameboard() {
   }
   
   function ScreenController() {
-    const game = GameController();
+    let game = GameController();
+    const container = document.querySelector('.container');
     const playerTurnDiv = document.querySelector('.turn');
     const resultDiv = document.querySelector('.result');
     const boardDiv = document.querySelector('.board');
+    const firstPlayer = document.getElementById('firstPlayer');
+    const secondPlayer = document.getElementById('secondPlayer');
+    const form = document.getElementById('form');
 
   
     const updateScreen = (result) => {
       // clear the board
       boardDiv.textContent = "";
-  
+      boardDiv.style.visibility = "visible";
+      
       // get the newest version of the board and player turn
       const board = game.getBoard();
       const activePlayer = game.getActivePlayer();
@@ -203,6 +192,14 @@ function Gameboard() {
 
       if(result) {
         (result === 'tie')? resultDiv.textContent = "It's a Tie" : resultDiv.textContent = `The winner is ${result}`;
+        const restartButton = document.createElement("button");
+        restartButton.classList.add("restart");
+        restartButton.textContent = "Play Again";
+        container.appendChild(restartButton);
+        restartButton.addEventListener('click', () => {
+          location.reload();
+          return false;
+        });
         boardDiv.removeEventListener("click", clickHandlerBoard);
       }
       // Render board squares
@@ -221,6 +218,13 @@ function Gameboard() {
       })
     }
   
+    form.addEventListener('submit', (e) => {
+      game = GameController(firstPlayer.value, secondPlayer.value);
+      form.textContent = "";
+      updateScreen();
+      e.preventDefault();
+    })
+
     // Add event listener for the board
     function clickHandlerBoard(e) {
       const selectedRow = e.target.dataset.row;
@@ -228,10 +232,13 @@ function Gameboard() {
       const result = game.playRound(selectedRow, selectedColumn);
       updateScreen(result);
     }
+
     boardDiv.addEventListener("click", clickHandlerBoard);
-  
+
     // Initial render
-    updateScreen();
+    // updateScreen();
+
+    boardDiv.style.visibility = "hidden";
   
     // We don't need to return anything from this module because everything is encapsulated inside this screen controller.
   }
