@@ -76,7 +76,7 @@ function Gameboard() {
   
     // Here, we provide an interface for the rest of our
     // application to interact with the board
-    return { getBoard, markToken, checkWinner, checkEmpty, printBoard };
+    return { getBoard, markToken, checkWinner, checkEmpty };
   }
   
   /*
@@ -146,7 +146,7 @@ function Gameboard() {
         }
 
         if(board.getBoard().flat().every(cell => cell.getValue() !== '')){
-          return 'tie';
+          return true;
         }
         
         // Switch player turn
@@ -154,9 +154,6 @@ function Gameboard() {
         return
       }
     };
-  
-    // Initial play game message
-    printNewRound();
   
     // For the console version, we will only use playRound, but we will need
     // getActivePlayer for the UI version, so I'm revealing it now
@@ -191,7 +188,7 @@ function Gameboard() {
       playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
 
       if(result) {
-        (result === 'tie')? resultDiv.textContent = "It's a Tie" : resultDiv.textContent = `The winner is ${result}`;
+        (result === true)? resultDiv.textContent = "It's a Tie" : resultDiv.textContent = `The winner is ${result}`;
         const restartButton = document.createElement("button");
         restartButton.classList.add("restart");
         restartButton.textContent = "Play Again";
