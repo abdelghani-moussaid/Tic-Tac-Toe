@@ -8,17 +8,38 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form id="form">
-        <label for="firstPlayer">First Player's Name :</label>
-        <input type="text" id="firstPlayer">
-        <label for="secondPlayer">Second Player's Name :</label>
-        <input type="text" id="secondPlayer">
-        <button class="submit" type="submit">Start the Game</button>
-    </form>
-    <div class="container">
-        <h1 class="turn"></h1>
-        <h1 class="result"></h1>
-        <div class="board"></div>
-      </div>
+    <div class="main">
+        <div class="header">
+            <h1>Tic Tac Toe</h1>
+        </div>
+        <form id="form">
+            <div class="firstPlayer">
+                <label for="firstPlayer">First Player's Name :</label>
+                <input type="text" id="firstPlayer" maxlength="15" required >
+            </div>
+            <div class="secondPlayer">    
+                <label for="secondPlayer">Second Player's Name :</label>
+                <input type="text" id="secondPlayer" maxlength="15" required>
+            </div>
+            <div class="btn">
+                <button class="gameBtn submit" type="submit">Start Game</button>
+            </div>
+        </form>
+        <div class="container">
+            <div class="content">
+                <h1 class="turn"></h1>
+                <h1 class="result"></h1>
+            </div>
+            <div class="board"></div>
+        </div>
+        <div class="footer">
+                <div>    
+                    Made by Abdelghani Moussaid
+                </div>
+                <div>
+                    <a href="https://github.com/abdelghani-moussaid"><img src="github.svg" alt="github profile" height="30px" width="30px"></a>
+                </div> 
+        </div>
+    </div>
 </body>
 </html>

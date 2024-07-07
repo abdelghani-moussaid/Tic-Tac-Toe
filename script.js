@@ -135,9 +135,6 @@ function Gameboard() {
     const playRound = (row, column) => {
       if(board.checkEmpty(row, column)){
         // Mark a token for the current player
-        console.log(
-          `Marking ${getActivePlayer().name}'s token into row ${row}, column ${column}...`
-        );
         board.markToken(row, column, getActivePlayer().token);
 
 
@@ -154,9 +151,7 @@ function Gameboard() {
         return
       }
     };
-  
-    // For the console version, we will only use playRound, but we will need
-    // getActivePlayer for the UI version, so I'm revealing it now
+
     return {
       playRound,
       getActivePlayer,
@@ -166,7 +161,7 @@ function Gameboard() {
   
   function ScreenController() {
     let game = GameController();
-    const container = document.querySelector('.container');
+    const content = document.querySelector('.content');
     const playerTurnDiv = document.querySelector('.turn');
     const resultDiv = document.querySelector('.result');
     const boardDiv = document.querySelector('.board');
@@ -190,9 +185,9 @@ function Gameboard() {
       if(result) {
         (result === true)? resultDiv.textContent = "It's a Tie" : resultDiv.textContent = `The winner is ${result}`;
         const restartButton = document.createElement("button");
-        restartButton.classList.add("restart");
+        restartButton.classList.add("gameBtn");
         restartButton.textContent = "Play Again";
-        container.appendChild(restartButton);
+        content.appendChild(restartButton);
         restartButton.addEventListener('click', () => {
           location.reload();
           return false;
