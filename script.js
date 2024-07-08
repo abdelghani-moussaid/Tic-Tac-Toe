@@ -213,6 +213,7 @@ function Gameboard() {
     form.addEventListener('submit', (e) => {
       game = GameController(firstPlayer.value, secondPlayer.value);
       form.textContent = "";
+      form.style.display = "none";
       updateScreen();
       e.preventDefault();
     })
