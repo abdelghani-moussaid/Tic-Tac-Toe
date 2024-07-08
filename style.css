@@ -29,7 +29,7 @@
   background: #000;
   cursor: pointer;
   color: #fff;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight: 900;
 }
 .cell:hover {
@@ -53,14 +53,6 @@ h1 {
   margin-bottom: 18px;
   text-align: center;
 }
-/* 
-.main {
-  width:  100%;
-  margin: 0px auto;
-  display: flex;
-  flex-direction: column;
-}  */
-
 
 .header {
   padding:          10px;
